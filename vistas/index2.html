@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITVentas - E-commerce</title>
+    <!-- Agregar estilos link rel= href etc etc -->
+    <link rel="stylesheet" href="../public/css/landing.css">
+    <script src=""></script>
+   
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+               
+                <div class="logo">🛒 ITVentas</div>
+                  <div class="search-bar">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos...">
+                    <button onclick="searchProducts()" class="btn">Buscar</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="filters">
+            <h3>Filtros</h3>
+            <div class="filter-group">
+                <select id="categoryFilter" class="filter-select" onchange="loadProducts()">
+                    <option value="">Todas las categorías</option>
+                    <option value="1">Smartphones</option>
+                    <option value="2">Laptops</option>
+                    <option value="3">Tablets</option>
+                    <option value="4">Accesorios</option>
+                 </select>
+                <select id="priceFilter" class="filter-select" onchange="loadProducts()">
+                    <option value="">Filtrar por Precios</option>
+                    <option value="0-100">$0 - $100</option>
+                    <option value="100-500">$100 - $500</option>
+                    <option value="500-1000">$500 - $1000</option>
+                    <option value="1000+">$1000+</option>
+                </select>
+                <select id="sortFilter" class="filter-select" onchange="loadProducts()">
+                    <option value="">Ordenar por</option>
+                    <option value="name_asc">Nombre A-Z</option>
+                    <option value="name_desc">Nombre Z-A</option>
+                    <option value="price_asc">Precio menor a mayor</option>
+                    <option value="price_desc">Precio mayor a menor</option>
+                </select>
+                <button onclick="clearFilters()" class="btn">Limpiar filtros</button>
+            </div>
+        </div>
+
+        <div id="loadingMessage" class="loading" style="display: none;">
+            Cargando productos... ⏳
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;">
+            Error
+        </div>
+        <div id="successMessage" class="success-message" style="display: none;">
+            Producto agregado al carrito con exito
+        </div>
+
+        <!-- Productos estáticos de ejemplo -->
+        <div id="productsContainer" class="products-grid">
+            <div class="product-card" onclick="viewProduct(1)">
+                <div class="product-image smartphone">
+                    📱
+                </div>
+                <div class="product-info">
+                    <div class="product-name">iPhone 14 Pro</div>
+                    <div class="product-description">El iPhone más avanzado con chip A16 Bionic, cámara de 48MP y pantalla Super Retina XDR de 6.1"</div>
+                    <div class="product-price">$1,199.99</div>
+                    <div class="product-stock">Stock: 15 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 1, 'iPhone 14 Pro', 1199.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="viewProduct(2)">
+                <div class="product-image laptop">
+                    💻
+                </div>
+                <div class="product-info">
+                    <div class="product-name">MacBook Pro 14"</div>
+                    <div class="product-description">MacBook Pro con chip M2 Pro, 16GB RAM, 512GB SSD. Pantalla Liquid Retina XDR de 14.2"</div>
+                    <div class="product-price">$2,399.99</div>
+                    <div class="product-stock">Stock: 8 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 2, 'MacBook Pro 14', 2399.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="viewProduct(3)">
+                <div class="product-image tablet">
+                    📟
+                </div>
+                <div class="product-info">
+                    <div class="product-name">iPad Air</div>
+                    <div class="product-description">iPad Air con chip M1, pantalla Liquid Retina de 10.9", Wi-Fi, 64GB</div>
+                    <div class="product-price">$599.99</div>
+                    <div class="product-stock">Stock: 12 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 3, 'iPad Air', 599.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="viewProduct(4)">
+                <div class="product-image smartphone">
+                    📱
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Samsung Galaxy S23</div>
+                    <div class="product-description">Smartphone con cámara de 50MP, pantalla Dynamic AMOLED 2X de 6.1", 8GB RAM</div>
+                    <div class="product-price">$899.99</div>
+                    <div class="product-stock">Stock: 20 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 4, 'Samsung Galaxy S23', 899.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="viewProduct(5)">
+                <div class="product-image laptop">
+                    💻
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Dell XPS 13</div>
+                    <div class="product-description">Laptop ultradelgada con procesador Intel Core i7, 16GB RAM, 512GB SSD, pantalla 13.4"</div>
+                    <div class="product-price">$1,499.99</div>
+                    <div class="product-stock">Stock: 6 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 5, 'Dell XPS 13', 1499.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="viewProduct(6)">
+                <div class="product-image accessory">
+                    🎧
+                </div>
+                <div class="product-info">
+                    <div class="product-name">AirPods Pro 2</div>
+                    <div class="product-description">Auriculares inalámbricos con cancelación activa de ruido, chip H2, hasta 6 horas de batería</div>
+                    <div class="product-price">$249.99</div>
+                    <div class="product-stock">Stock: 25 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 6, 'AirPods Pro 2', 249.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="viewProduct(7)">
+                <div class="product-image tablet">
+                    📟
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Surface Pro 9</div>
+                    <div class="product-description">Tablet 2-en-1 con procesador Intel Core i7, 16GB RAM, 256GB SSD, pantalla PixelSense de 13"</div>
+                    <div class="product-price">$1,599.99</div>
+                    <div class="product-stock">Stock: 4 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 7, 'Surface Pro 9', 1599.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="viewProduct(8)">
+                <div class="product-image accessory">
+                    ⌨️
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Magic Keyboard</div>
+                    <div class="product-description">Teclado inalámbrico con retroiluminación, Touch ID, compatible con Mac y iPad</div>
+                    <div class="product-price">$179.99</div>
+                    <div class="product-stock">Stock: 18 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 8, 'Magic Keyboard', 179.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="viewProduct(9)">
+                <div class="product-image smartphone">
+                    📱
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Google Pixel 7</div>
+                    <div class="product-description">Smartphone con chip Google Tensor G2, cámara de 50MP, pantalla OLED de 6.3"</div>
+                    <div class="product-price">$699.99</div>
+                    <div class="product-stock">Stock: 11 unidades</div>
+                    <button class="add-to-cart" onclick="addToCart(event, 9, 'Google Pixel 7', 699.99)">
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="pagination" class="pagination">
+            <button class="page-btn active" onclick="loadProducts(1)">1</button>
+            <button class="page-btn" onclick="loadProducts(2)">2</button>
+            <button class="page-btn" onclick="loadProducts(3)">3</button>
+            <button class="page-btn" onclick="loadProducts(2)">Siguiente ›</button>
+        </div>
+    </div>
+
+    <div class="cart-icon" onclick="viewCart()">
+        🛒 Carrito <span id="cartCount" class="cart-count">0</span>
+    </div>
+
+    <script src="../scripts/app.js"></script>
+   <!-- <script type="text/javascript" src="scripts/app.js"></script>-->
+</body>
+</html>
