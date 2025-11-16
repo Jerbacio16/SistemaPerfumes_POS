@@ -1,0 +1,36 @@
+/* Colores personalizados para la librería */
+
+.main-header .logo {
+  background-color: #c5c332 !important; /* Morado fuerte */
+  color: #fff !important;
+}
+
+.main-header .navbar {
+  background-color: #f1ee3c !important; /* Morado más oscuro */
+}
+
+
+.sidebar-menu > li > a {
+  color: #e0e0e0;
+}
+
+.sidebar-menu > li > a:hover {
+  background-color: #929023;
+  color: white;
+}
+
+.content-wrapper {
+  background-color: #f9f6ff; /* Muy clarito con toque lila */
+}
+
+/* Botones */
+.btn-primary {
+  background-color: #929023;
+  border-color: #929023;
+}
+
+.btn-primary:hover {
+  background-color: #4a148c;
+  border-color: #4a148c;
+}
+

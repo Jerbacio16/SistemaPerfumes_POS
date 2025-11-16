@@ -11,12 +11,12 @@ function init(){
 	})
 
 	$("#imagenmuestra").hide();
-	//Mostramos los permisos, lo voy a mostrar en el elemento del formulario cuyo id es
-	//#permisos
+	//Mostramos los permisos
 	$.post("../ajax/usuario.php?op=permisos&id=",function(r){
 	        $("#permisos").html(r);
-
 	});
+	$('#mAcceso').addClass("treeview active");
+    $('#lUsuarios').addClass("active");
 }
 
 //Función limpiar
@@ -66,9 +66,10 @@ function listar()
 {
 	tabla=$('#tbllistado').dataTable(
 	{
+		"lengthMenu": [ 5, 10, 25, 75, 100],//mostramos el menú de registros a revisar
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    dom: '<Bl<f>rtip>',//Definimos los elementos del control de tabla
 	    buttons: [		          
 		            'copyHtml5',
 		            'excelHtml5',
@@ -84,6 +85,16 @@ function listar()
 						console.log(e.responseText);	
 					}
 				},
+		"language": {
+            "lengthMenu": "Mostrar : _MENU_ registros",
+            "buttons": {
+            "copyTitle": "Tabla Copiada",
+            "copySuccess": {
+                    _: '%d líneas copiadas',
+                    1: '1 línea copiada'
+                }
+            }
+        },
 		"bDestroy": true,
 		"iDisplayLength": 5,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)

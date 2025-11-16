@@ -17,6 +17,7 @@ Class Permiso
 		$sql="SELECT * FROM permiso";
 		return ejecutarConsulta($sql);		
 	}
+
 }
 
 ?>

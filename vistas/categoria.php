@@ -1,5 +1,18 @@
 <?php
+//Activamos el almacenamiento en el buffer
+ob_start();
+session_start();
+
+if (!isset($_SESSION["nombre"]))
+{
+  header("Location: login.html");
+}
+else
+{
 require 'header.php';
+
+if ($_SESSION['almacen']==1)
+{
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
@@ -10,7 +23,7 @@ require 'header.php';
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Categoría <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Categoría <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptcategorias.php" target="_blank"><button class="btn btn-info"><i class="fa fa-clipboard"></i> Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -61,6 +74,18 @@ require 'header.php';
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 <?php
+}
+else
+{
+  require 'noacceso.php';
+}
+
 require 'footer.php';
 ?>
 <script type="text/javascript" src="scripts/categoria.js"></script>
+<?php 
+}
+ob_end_flush();
+?>
+
+

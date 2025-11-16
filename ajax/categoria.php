@@ -1,11 +1,21 @@
 <?php 
+ob_start();
+if (strlen(session_id()) < 1){
+	session_start();//Validamos si existe o no la sesión
+}
+if (!isset($_SESSION["nombre"]))
+{
+  header("Location: ../vistas/login.html");//Validamos el acceso solo a los usuarios logueados al sistema.
+}
+else
+{
+//Validamos el acceso solo al usuario logueado y autorizado.
+if ($_SESSION['almacen']==1)
+{
 require_once "../modelos/Categoria.php";
-
-//Cuando creo la instancia ulitizo en constructor
 
 $categoria=new Categoria();
 
-// Si existe el parámetro idcategoria mediante el méodo post que limpie cadena
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
 $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
 $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
@@ -25,19 +35,18 @@ switch ($_GET["op"]){
 	case 'desactivar':
 		$rspta=$categoria->desactivar($idcategoria);
  		echo $rspta ? "Categoría Desactivada" : "Categoría no se puede desactivar";
- 		break;
 	break;
 
 	case 'activar':
 		$rspta=$categoria->activar($idcategoria);
  		echo $rspta ? "Categoría activada" : "Categoría no se puede activar";
- 	break;
+	break;
 
 	case 'mostrar':
 		$rspta=$categoria->mostrar($idcategoria);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
- 	break;
+	break;
 
 	case 'listar':
 		$rspta=$categoria->listar();
@@ -65,4 +74,12 @@ switch ($_GET["op"]){
 
 	break;
 }
+//Fin de las validaciones de acceso
+}
+else
+{
+  require 'noacceso.php';
+}
+}
+ob_end_flush();
 ?>

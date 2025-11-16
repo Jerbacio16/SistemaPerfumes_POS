@@ -1,62 +1,77 @@
-/* iCheck plugin Square skin, blue
------------------------------------ */
-.icheckbox_square-blue,
-.iradio_square-blue {
-    display: inline-block;
-    *display: inline;
-    vertical-align: middle;
-    margin: 0;
-    padding: 0;
-    width: 22px;
-    height: 22px;
-    background: url(blue.png) no-repeat;
-    border: none;
-    cursor: pointer;
+/* Fondo general con degradado y desenfoque */
+body.login-page {
+  background: url('../../files/fondo2.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.icheckbox_square-blue {
-    background-position: 0 0;
+/* Caja del login estilo vidrio */
+.login-box-body {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 30px;
+  transition: all 0.3s ease;
 }
-    .icheckbox_square-blue.hover {
-        background-position: -24px 0;
-    }
-    .icheckbox_square-blue.checked {
-        background-position: -48px 0;
-    }
-    .icheckbox_square-blue.disabled {
-        background-position: -72px 0;
-        cursor: default;
-    }
-    .icheckbox_square-blue.checked.disabled {
-        background-position: -96px 0;
-    }
 
-.iradio_square-blue {
-    background-position: -120px 0;
+/* Logo con efecto de luz */
+.login-logo a {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
-    .iradio_square-blue.hover {
-        background-position: -144px 0;
-    }
-    .iradio_square-blue.checked {
-        background-position: -168px 0;
-    }
-    .iradio_square-blue.disabled {
-        background-position: -192px 0;
-        cursor: default;
-    }
-    .iradio_square-blue.checked.disabled {
-        background-position: -216px 0;
-    }
 
-/* Retina support */
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-       only screen and (-moz-min-device-pixel-ratio: 1.5),
-       only screen and (-o-min-device-pixel-ratio: 3/2),
-       only screen and (min-device-pixel-ratio: 1.5) {
-    .icheckbox_square-blue,
-    .iradio_square-blue {
-        background-image: url(blue@2x.png);
-        -webkit-background-size: 240px 24px;
-        background-size: 240px 24px;
-    }
+/* Campos de texto */
+.form-control {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 15px;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Íconos dentro de los inputs */
+.form-control-feedback {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Botón de ingresar */
+.btn-primary {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Mensaje de acceso */
+.login-box-msg {
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* Ajustes visuales en pantallas pequeñas */
+@media (max-width: 480px) {
+  .login-box-body {
+    padding: 20px;
+  }
 }

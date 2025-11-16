@@ -1,14 +1,19 @@
-<?php  
-//IP de la PC servidor de BD
+<?php 
+//Ip de la pc servidor de base de datos
 define("DB_HOST","localhost");
-//nombre de la BD
-define("DB_NAME","perfumeria");
-//usuario de la BD
-define("DB_USERNAME","root");
-//contraseña del usuario de  la BD
-define("DB_PASSWORD","42670316");
+
+//Nombre de la base de datos
+define("DB_NAME", "perfumeria");
+
+//Usuario de la base de datos
+define("DB_USERNAME", "root");
+
+//Contraseña del usuario de la base de datos
+define("DB_PASSWORD", "42670316");
+
 //definimos la codificación de los caracteres
 define("DB_ENCODE","utf8");
-//definimos el nombre del sistema
-define("PRO_NOMBRE","Esencia Real");  
+
+//Definimos una constante como nombre del proyecto
+define("PRO_NOMBRE","Esencia Real");
 ?>

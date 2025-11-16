@@ -8,17 +8,20 @@ function init(){
 	$("#formulario").on("submit",function(e)
 	{
 		guardaryeditar(e);	
-	})
+	});
+	$('#mVentas').addClass("treeview active");
+    $('#lClientes').addClass("active");
 }
 
 //Función limpiar
 function limpiar()
 {
+	$("#nombre").val("");
 	$("#num_documento").val("");
-    $("#direccion").val("");
-    $("#telefono").val("");
-    $("#email").val("");
-    $("#idpersona").val("");
+	$("#direccion").val("");
+	$("#telefono").val("");
+	$("#email").val("");
+	$("#idpersona").val("");
 }
 
 //Función mostrar formulario
@@ -52,9 +55,10 @@ function listar()
 {
 	tabla=$('#tbllistado').dataTable(
 	{
+		"lengthMenu": [ 5, 10, 25, 75, 100],//mostramos el menú de registros a revisar
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    dom: '<Bl<f>rtip>',//Definimos los elementos del control de tabla
 	    buttons: [		          
 		            'copyHtml5',
 		            'excelHtml5',
@@ -70,6 +74,16 @@ function listar()
 						console.log(e.responseText);	
 					}
 				},
+		"language": {
+            "lengthMenu": "Mostrar : _MENU_ registros",
+            "buttons": {
+            "copyTitle": "Tabla Copiada",
+            "copySuccess": {
+                    _: '%d líneas copiadas',
+                    1: '1 línea copiada'
+                }
+            }
+        },
 		"bDestroy": true,
 		"iDisplayLength": 5,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
@@ -109,14 +123,14 @@ function mostrar(idpersona)
 		mostrarform(true);
 
 		$("#nombre").val(data.nombre);
-        $("#tipo_documento").val(data.tipo_documento);
-        $("#tipo_documento").selectpicker('refresh');
-        $("#num_documento").val(data.num_documento);
-        $("#direccion").val(data.direccion);
-        $("#telefono").val(data.telefono);
-        $("#email").val(data.email);
-        $("#idpersona").val(data.idpersona);
- 
+		$("#tipo_documento").val(data.tipo_documento);
+		$("#tipo_documento").selectpicker('refresh');
+		$("#num_documento").val(data.num_documento);
+		$("#direccion").val(data.direccion);
+		$("#telefono").val(data.telefono);
+		$("#email").val(data.email);
+ 		$("#idpersona").val(data.idpersona);
+		
 
  	})
 }
@@ -124,15 +138,15 @@ function mostrar(idpersona)
 //Función para eliminar registros
 function eliminar(idpersona)
 {
-    bootbox.confirm("¿Está Seguro de eliminar el cliente?", function(result){
-        if(result)
+	bootbox.confirm("¿Está Seguro de eliminar el cliente?", function(result){
+		if(result)
         {
-            $.post("../ajax/persona.php?op=eliminar", {idpersona : idpersona}, function(e){
-                bootbox.alert(e);
-                tabla.ajax.reload();
-            }); 
+        	$.post("../ajax/persona.php?op=eliminar", {idpersona : idpersona}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
         }
-    })
+	})
 }
 
 init();

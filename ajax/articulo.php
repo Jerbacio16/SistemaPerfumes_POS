@@ -1,7 +1,20 @@
 <?php 
-require_once "../modelos/articulo.php";
+ob_start();
+if (strlen(session_id()) < 1){
+	session_start();//Validamos si existe o no la sesión
+}
+if (!isset($_SESSION["nombre"]))
+{
+  header("Location: ../vistas/login.html");//Validamos el acceso solo a los usuarios logueados al sistema.
+}
+else
+{
+//Validamos el acceso solo al usuario logueado y autorizado.
+if ($_SESSION['almacen']==1)
+{	
+require_once "../modelos/Articulo.php";
 
-$articulo = new Articulo();
+$articulo=new Articulo();
 
 $idarticulo = isset($_POST["idarticulo"]) ? limpiarCadena($_POST["idarticulo"]) : "";
 $idcategoria = isset($_POST["idcategoria"]) ? limpiarCadena($_POST["idcategoria"]) : "";
@@ -14,7 +27,6 @@ $combinacion = isset($_POST["combinacion"]) ? limpiarCadena($_POST["combinacion"
 $tamaño = isset($_POST["tamaño"]) ? limpiarCadena($_POST["tamaño"]) : "";
 $duracion = isset($_POST["duracion"]) ? limpiarCadena($_POST["duracion"]) : "";
 $imagen = isset($_POST["imagen"]) ? limpiarCadena($_POST["imagen"]) : "";
-
 
 switch ($_GET["op"]) {
     case 'guardaryeditar':
@@ -108,4 +120,12 @@ switch ($_GET["op"]) {
         }
         break;
 }
+//Fin de las validaciones de acceso
+}
+else
+{
+  require 'noacceso.php';
+}
+}
+ob_end_flush();
 ?>

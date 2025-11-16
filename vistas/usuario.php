@@ -1,5 +1,17 @@
 <?php
+//Activamos el almacenamiento en el buffer
+ob_start();
+session_start();
+
+if (!isset($_SESSION["nombre"]))
+{
+  header("Location: login.html");
+}
+else
+{
 require 'header.php';
+if ($_SESSION['acceso']==1)
+{
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
@@ -10,7 +22,7 @@ require 'header.php';
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Usuario <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Usuario <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptusuarios.php" target="_blank"><button class="btn btn-info"><i class="fa fa-clipboard"></i> Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -18,7 +30,6 @@ require 'header.php';
                     <!-- centro -->
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
-                          <!-- Lo mismo que el CASE "listar" de Ajax-->
                           <thead>
                             <th>Opciones</th>
                             <th>Nombre</th>
@@ -54,10 +65,9 @@ require 'header.php';
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Tipo Documento(*):</label>
-                            <!-- Se activa el SelectPicker estático-->
                             <select class="form-control select-picker" name="tipo_documento" id="tipo_documento" required>
                               <option value="DNI">DNI</option>
-                              <option value="RUC">LU</option>
+                              <option value="RUC">RUC</option>
                               <option value="CEDULA">CEDULA</option>
                             </select>
                           </div>
@@ -87,26 +97,20 @@ require 'header.php';
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Clave (*):</label>
-                            <!-- Se activa Type=password para guardar contraseña-->
-                          <input type="password" class="form-control" name="clave" id="clave" maxlength="64" placeholder="Clave" required>
+                            <input type="password" class="form-control" name="clave" id="clave" maxlength="64" placeholder="Clave" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Permisos:</label>
                             <ul style="list-style: none;" id="permisos">
-                              <!--CSS: "list-style: none"propiedad que se utiliza para eliminar los marcadores (viñetas, números, etc.) de las listas desordenadas (<ul>) para los permisos-->
+                              
                             </ul>
                           </div>
 
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Imagen:</label>
-                            <!--imagen type:"file"-->
-                            <input type="file" class="form-control" name="imagen" id="imagen">
+                            <input type="file" class="form-control" name="imagen" id="imagen" accept="image/x-png,image/gif,image/jpeg">
                             <input type="hidden" name="imagenactual" id="imagenactual">
-                            <!--imagenactual está oculto, cuando editemos vamos a 
-                              utilizar este ID-->
                             <img src="" width="150px" height="120px" id="imagenmuestra">
-                           <!--el objeto "IMG" va a mostrar la imagen que ya está guardada
-                            para ese usuario en la tabla usuario de la BD-->
                           </div>
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
@@ -124,6 +128,16 @@ require 'header.php';
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 <?php
+}
+else
+{
+  require 'noacceso.php';
+}
 require 'footer.php';
 ?>
+
 <script type="text/javascript" src="scripts/usuario.js"></script>
+<?php 
+}
+ob_end_flush();
+?>
