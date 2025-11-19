@@ -100,6 +100,49 @@ header {
     transform: scale(1.03);
 }
 
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    width: 70px;
+    height: 70px;
+    background: rgb(26, 150, 63); /* fondo blanco redondo */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    z-index: 9999;
+    animation: floatWhatsapp 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: transform .3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.15);
+}
+
+.whatsapp-float img {
+    width: 55px; /* tamaño del logo */
+    height: 55px;
+}
+
+@keyframes floatWhatsapp {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+}
+
+/* Animación de fade-up en secciones */
+.fade-up {
+opacity: 0;
+transform: translateY(40px);
+transition: all 0.8s ease;
+}
+.fade-up.visible {
+opacity: 1;
+transform: translateY(0);
+}
 
 /* Contenedor derecho (buscador + login) */
 .right-section {
