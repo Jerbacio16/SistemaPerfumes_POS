@@ -324,10 +324,23 @@
     </footer>
 
 
+    <a href="https://wa.me/5493644565925?text=Hola!%20Quiero%20hacer%20una%20consulta"
+        class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+
+    </a>
+    <script>
+     // Animación fade-up al aparecer en pantalla
+    const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+    });
+    }, { threshold: 0.2 });
 
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
     <!-- Scripts -->
